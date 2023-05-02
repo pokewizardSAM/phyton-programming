@@ -23,12 +23,14 @@ def create_art():
     while Font == "":
         Font = input("""
     ──────────────────────────────────────────────────────────────
-    **if you want to see the available fonts type 'show fonts'**
+      if you want to see the available fonts type 'show fonts'
     ──────────────────────────────────────────────────────────────
      please enter the font name:""")
         
         if Font.upper() == "SHOW FONTS":
             show_fonts()
+            Font = ""
+            continue
         elif Font not in font_list:
             print("     invalid font !!! try again ")
             Font = ""
