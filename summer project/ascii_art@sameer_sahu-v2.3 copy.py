@@ -1,15 +1,31 @@
 import importlib
-# import pyfiglet 
+import pyfiglet 
 # import sys 
 # import time
 import subprocess
 
+
+# Changelog
+changelog = {
+    "v1.0": "Supports veiwing fonts, creting fonts, Basic error handeling",
+    "v2.0": "Added new features - Advanced error handling, menu navigation, enhanced font selection.",
+    "v2.1": "Added new features - save and load artwork, customization options.",
+    "v2.2": "Added new features - ASCII art gallery, user preferences.",
+    "v2.3": "Bug fixes and improvements.",
+}
+
+def print_changelog():
+    # Print the changelog
+    print("Changelog:")
+    for version, changes in changelog.items():
+        print(f"Version {version}: {changes}")
+
 def module_compatibilty_installer():  
     print("---INTIALISATION---")
-    modules_required = ["pyfiglet", "subprocess", "time", "sys", "flet"]
+    modules_required = ["pyfiglet", "subprocess", "time", "sys"]
     imported_modules = []
     for module_name in modules_required:
-            try:
+            try:        #This part imports the module
                 module = importlib.import_module(module_name)
                 imported_modules.append(module)
                 print(f"successfully imported {module_name}")
@@ -25,10 +41,7 @@ def module_compatibilty_installer():
 
 module_compatibilty_installer()
     
-
 font_list = pyfiglet.Figlet().getFonts()
-
-
 def show_fonts():
     
     for f in font_list:
@@ -82,7 +95,6 @@ def exit_programm():
          
 
 def ArtGen():
-
     menu = """
 ┌──────────────────────────────────────────────────────────────┐
 │                          ARTGEN MENU                         │
