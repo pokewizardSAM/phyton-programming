@@ -10,7 +10,7 @@ def show_fonts():
     for f in font_list:
         print("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-==-=-\n","Font Name: ",f)
         pyfiglet.print_figlet(f,f)
-    return font_list
+    return font_list 
 
 # def font_validity_check():
     # if in font_list:

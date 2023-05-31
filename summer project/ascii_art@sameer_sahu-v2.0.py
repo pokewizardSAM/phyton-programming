@@ -1,8 +1,31 @@
-import pyfiglet 
 import importlib
-import sys 
-import time
+# import pyfiglet 
+# import sys 
+# import time
 import subprocess
+
+def module_compatibilty_installer():  
+    print("---INTIALISATION---")
+    modules_required = ["pyfiglet", "subprocess", "time", "sys"]
+    imported_modules = []
+    for module_name in modules_required:
+            try:
+                module = importlib.import_module(module_name)
+                imported_modules.append(module)
+                print(f"successfully imported {module_name}")
+                globals()[module_name] = module
+            except:
+                print(f"failed to import {module_name}. INSTALLING......")
+                subprocess.check_call(["pip","install", module_name]) 
+                #parsing error can occur in subprocess.check_call() if the arguments are not passed a single list
+                try:
+                    globals()[module_name] = importlib.import_module(module_name)
+                except ImportError:
+                    print(f"Failed to import module even after installing.....Fatal error")
+
+module_compatibilty_installer()
+    
+
 font_list = pyfiglet.Figlet().getFonts()
 
 
@@ -12,9 +35,6 @@ def show_fonts():
         print("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-==-=-\n","Font Name: ",f)
         pyfiglet.print_figlet(f,f)
     return font_list
-
-# def font_validity_check():
-    # if in font_list:
 
 
 def create_art():
@@ -27,7 +47,7 @@ def create_art():
       if you want to see the available fonts type 'show fonts'
     ──────────────────────────────────────────────────────────────
      please enter the font name:""")
-        
+        # FONT VALIDITY CHECK HERE
         if Font.upper() == "SHOW FONTS":
             show_fonts()
             Font = ""
@@ -60,14 +80,6 @@ def exit_programm():
     time.sleep(2)
     sys.exit()
          
-def module_compatibility_check():
-    modules_required = { pyfiglet , subprocess , time , sys }
-    for module in range(modules_required):
-        try:
-            module = importlib.import_module(module)
-            return module
-        except ImportError:
-            print(f"Failed to import module: {module}")
 
 def ArtGen():
 
@@ -78,21 +90,22 @@ def ArtGen():
 │                                                              │
 │  1.SHOW FONTS                                                │
 │  2.CREATE ART                                                │
-│  3.EXIT                                                      │
+│  3.MENU                                                      │
+│  4.EXIT                                                      │
 │                                                              │
 └──────────────────────────────────────────────────────────────┘
 """
     print(menu)
     while True:
-        user_input = input("Enter a command or type 'exit' to quit the program: ")
+        user_input = input("Enter a command (show fonts, create art) or type 'exit' to quit the program: ")
         if user_input.upper() == "SHOW FONTS":
             show_fonts()
         elif user_input.upper() == "CREATE ART":
             print(create_art())
-        elif user_input.upper() == "EXIT":
-            exit_programm()
         elif user_input.upper() == "MENU":
             print(menu)
+        elif user_input.upper() == "EXIT":
+            exit_programm()
         else:
             print('invalid input!!!')
 
