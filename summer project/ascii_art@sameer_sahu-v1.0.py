@@ -58,10 +58,9 @@ def exit_programm():
     pyfiglet.print_figlet("sayonara", font="speed")
     time.sleep(2)
     sys.exit()
-    
-    
+         
 
-def main():
+def ArtGen():
 
     menu = """
 ┌──────────────────────────────────────────────────────────────┐
@@ -82,10 +81,12 @@ def main():
         elif user_input.upper() == "CREATE ART":
             print(create_art())
         elif user_input.upper() == "EXIT":
-                exit_programm()
+            exit_programm()
+        elif user_input.upper() == "MENU":
+            print(menu)
         else:
             print('invalid input!!!')
 
 
 
-main()
+ArtGen()
