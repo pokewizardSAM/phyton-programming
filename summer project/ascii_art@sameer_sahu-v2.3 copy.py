@@ -22,7 +22,7 @@ def print_changelog():
 
 def module_compatibilty_installer():  
     print("---INTIALISATION---")
-    modules_required = ["pyfiglet", "subprocess", "time", "sys", "PyQt5"]
+    modules_required = ["pyfiglet", "subprocess", "time", "sys", "PyQt5","flet"]
     imported_modules = []
     for module_name in modules_required:
             try:        #This part imports the module
@@ -93,6 +93,7 @@ def exit_programm():
     time.sleep(2)
     sys.exit()
          
+# def presets():
 
 def ArtGen():
     menu = """
@@ -103,7 +104,8 @@ def ArtGen():
 │  1.SHOW FONTS                                                │
 │  2.CREATE ART                                                │
 │  3.MENU                                                      │
-│  4.EXIT                                                      │
+│  4.PRESETS                                                   │
+│  5.EXIT                                                      │
 │                                                              │
 └──────────────────────────────────────────────────────────────┘
 """
