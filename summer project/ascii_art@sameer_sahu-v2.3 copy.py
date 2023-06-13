@@ -1,5 +1,5 @@
 import importlib
-# import pyfiglet 
+import pyfiglet 
 # # import sys 
 # # import time
 import subprocess
@@ -11,7 +11,7 @@ changelog = {
     "v2.0": "Added new features - Advanced error handling, menu navigation, enhanced font selection.",
     "v2.1": "Added new features - save and load artwork, customization options.",
     "v2.2": "Added new features - ASCII art gallery, user preferences.",
-    "v2.3": "Bug fixes and improvements.",
+    "v2.3": "Bkug fixes and improvements.",
 }
 
 def print_changelog():
