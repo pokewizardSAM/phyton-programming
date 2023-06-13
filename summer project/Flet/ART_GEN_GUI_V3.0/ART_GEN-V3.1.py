@@ -1,42 +1,8 @@
 import importlib
 import subprocess
-import flet as ft
+import flet 
 
-def main(page: ft.page):
-    page.title = "ART-GEN V3.0 Gui based UNGA BUNGA fire 🔥shit "
-    page.scroll = "adaptive"
-    page.padding = 20    
-
-    page.fonts = {
-        "cascadia": r"Flet\ART_GEN_GUI_V3.0\assets\fonts\CascadiaMono-instance.ttf"
-    }
-    page.appbar = ft.AppBar(
-        
-    )
-
-    
-    # import pyfiglet 
-    # import sys 
-    # import time
-    
-
-    # Changelog
-    changelog = {
-        "v1.0": "Supports veiwing fonts, creting fonts, Basic error handeling",
-        "v2.0": "Added new features - Advanced error handling, menu navigation, enhanced font selection.",
-        "v2.1": "Added new features - save and load artwork, customization options.",
-        "v2.2": "Added new features - ASCII art gallery, user preferences.",
-        "v2.3": "Bug fixes and improvements.",
-        "v3.0": "Added Gui support using flet, dynamic launch support added ",
-    }
-
-    def print_changelog():
-        # Print the changelog
-        print("Changelog:")
-        for version, changes in changelog.items():
-            print(f"Version {version}: {changes}")
-
-    def module_compatibilty_installer():  
+def module_compatibilty_installer():  
         print("---INTIALISATION---")
         modules_required = ["pyfiglet", "subprocess", "time", "sys", "PyQt5","flet"]
         imported_modules = []
@@ -55,7 +21,37 @@ def main(page: ft.page):
                     except ImportError:
                         print(f"Failed to import module even after installing.....Fatal error")
 
-    module_compatibilty_installer()
+module_compatibilty_installer()
+
+def main(page: flet.page):
+    page.title = "ART-GEN V3.0 Gui based UNGA BUNGA fire 🔥shit "
+    page.scroll = "adaptive"
+    page.padding = 20    
+
+    page.fonts = {
+        # Dont chnage anything here Nigger
+        "cascadia": r"Flet\ART_GEN_GUI_V3.0\assets\fonts\CascadiaMono-instance.ttf"
+    }
+    page.appbar = flet.AppBar(
+        
+    )
+
+    # Changelog
+    changelog = {
+        "v1.0": "Supports veiwing fonts, creting fonts, Basic error handeling",
+        "v2.0": "Added new features - Advanced error handling, menu navigation, enhanced font selection.",
+        "v2.1": "Added new features - save and load artwork, customization options.",
+        "v2.2": "Added new features - ASCII art gallery, user preferences.",
+        "v2.3": "Bug fixes and improvements.",
+        "v3.0": "Added Gui support using flet, dynamic launch support added ",
+    }
+
+    def print_changelog():
+        # Print the changelog
+        print("Changelog:")
+        for version, changes in changelog.items():
+            print(f"Version {version}: {changes}")
+
 
     font_list = pyfiglet.Figlet().getFonts()
     def show_fonts():
@@ -70,7 +66,27 @@ def main(page: ft.page):
         text_var = user_text.value
         font_var = user_font.value
 
-        # while Font == "":
+        if text_var == "":
+            empty_txt_msg = flet.AlertDialog(title=flet.Text("The Text Field can't be empty"), on_dismiss=lambda e: print("Error: Text Field is empty!!"))
+            page.dialog = empty_txt_msg
+            empty_txt_msg.open = True
+            page.update()
+            return
+        
+        if font_var == "":
+            empty_font_msg = flet.AlertDialog(title=flet.Text("The Font Field can't be empty"), on_dismiss=lambda e: print("Error: Font Field is empty!!"))
+            page.dialog = empty_font_msg
+            empty_font_msg.open = True
+            page.update()
+            return
+        
+        if font_var not  in font_list:
+            invalid_font_msg = flet.AlertDialog(title=flet.Text("The font is invalid, try again."))
+            page.dialog = invalid_font_msg
+            invalid_font_msg.open = True
+            print("Error: Invalid font...")
+            return
+        #     while text_var == "":
         #     Font = input("""
         # ──────────────────────────────────────────────────────────────
         #   if you want to see the available fonts type 'show fonts'
@@ -96,11 +112,9 @@ def main(page: ft.page):
         #         except  ValueError:
         #             print("     Please enter a valid integer!!")
 
-
-
         Thy_Art = pyfiglet.figlet_format(text_var,font_var)
         print(Thy_Art)
-
+        
         return Thy_Art
 
 
@@ -146,8 +160,7 @@ def main(page: ft.page):
     def click(e):
         # retuned_value = f'''{create_art()}'''
         val = create_art()
-        greeting.controls.append(ft.Text( value=val,selectable=True, font_family="cascadia" ))
-        
+        greeting.controls.append(flet.Text( value=val,selectable=True, font_family="cascadia" ))
         user_text.value= ""
         user_font.value= ""
         page.update()
@@ -166,76 +179,43 @@ def main(page: ft.page):
         page.update()
         
 
-
-    user_text = ft.TextField(width=900, 
+    
+    user_text = flet.TextField(width=900, 
                               height=100,
                               label="Text",
                               hint_text="Please enter your text here ")
     
-    user_font = ft.TextField(width=900,
+    user_font = flet.TextField(width=900,
                              height=100,
                              label="Font Name",
                              hint_text="Please enter the name of your font here")
     
-    submit_button = ft.ElevatedButton(text="submit", on_click=click)
+    submit_button = flet.ElevatedButton(text="submit", on_click=click)
     
-    clear_all = ft.ElevatedButton(text="clear", on_click= clear, on_long_press=clear_all)
+    clear_all = flet.ElevatedButton(text="clear", on_click= clear, on_long_press=clear_all)
+
+    page.navigation_bar = flet.NavigationBar(
+        destinations=[
+            flet.NavigationDestination(icon=flet.icons.EXPLORE, label="Art-GEN", ),
+            flet.NavigationDestination(icon=flet.icons.COMMUTE, label="Unga-Bunga"),
+            flet.NavigationDestination(
+                icon=flet.icons.BOOKMARK_BORDER,
+                selected_icon=flet.icons.BOOKMARK,
+                label="SUIIIIIII",
+            )
+        ]
+    )
 
 
 
-
-
-    control_row = ft.Row(controls=[submit_button,clear_all], alignment=ft.MainAxisAlignment.SPACE_EVENLY)
-    Data_fields = ft.Column(controls=[user_text,user_font], alignment=ft.MainAxisAlignment.SPACE_AROUND)
-    greeting = ft.Column(controls=[],alignment=ft.MainAxisAlignment.SPACE_AROUND)
+    control_row = flet.Row(controls=[submit_button,clear_all], alignment=flet.MainAxisAlignment.SPACE_EVENLY)
+    Data_fields = flet.Column(controls=[user_text,user_font], alignment=flet.MainAxisAlignment.SPACE_AROUND)
+    greeting = flet.Column(controls=[],alignment=flet.MainAxisAlignment.SPACE_AROUND)
 
     page.add(Data_fields,control_row,greeting)
 
-ft.app(target=main, assets_dir="assets")
+flet.app(target=main, assets_dir="assets")
 
 
 
 
-
-
-
-
-
-
-
-
-# _____________ _______ ___ 
-#   __  ___/  __ `/_  __ `__ \
-#   _(__  )/ /_/ /_  / / / / /
-#   /____/ \__,_/ /_/ /_/ /_/ 
-                          
-#        _____________ _______ ___ 
-# __  ___/  __ `/_  __ `__ \
-# _(__  )/ /_/ /_  / / / / /
-# /____/ \__,_/ /_/ /_/ /_/ 
-
-# _____________ _______ ___ 
-# __  ___/  __ `/_  __ `__ \
-# _(__  )/ /_/ /_  / / / / /
-# /____/ \__,_/ /_/ /_/ /_/ 
-
-                                                             
-# _____________ _______ ___ 
-# __  ___/  __ `/_  __ `__ \
-# _(__  )/ /_/ /_  / / / / /
-# /____/ \__,_/ /_/ /_/ /_/ 
-                    
-
-#      _______.     ___      .___  ___.  _______  _______ .______      
-#     /       |    /   \     |   \/   | |   ____||   ____||   _  \     
-#    |   (----`   /  ^  \    |  \  /  | |  |__   |  |__   |  |_)  |    
-#     \   \      /  /_\  \   |  |\/|  | |   __|  |   __|  |      /     
-# .----)   |    /  _____  \  |  |  |  | |  |____ |  |____ |  |\  \----.
-# |_______/    /__/     \__\ |__|  |__| |_______||_______|| _| `._____|
-                                                                     
-# ______________                             
-# __  ___/__    |______ _____________________
-# _____ \__  /| |_  __ `__ \  _ \  _ \_  ___/
-# ____/ /_  ___ |  / / / / /  __/  __/  /    
-# /____/ /_/  |_/_/ /_/ /_/\___/\___//_/     
-                                           
