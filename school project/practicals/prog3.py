@@ -1,7 +1,3 @@
-# Using lru_cache decorator to cache results
-from functools import lru_cache 
-
-@lru_cache(maxsize=None)
 def fib(n):
     if n < 2:
         return n
@@ -12,6 +8,5 @@ def get_fibonacci_term(n):
     result = fib(n)
     print(f"The {n}th Fibonacci term is {result}")
 
-if __name__ == '__main__':
-    n = int(input("Enter the nth term to calculate: "))
-    get_fibonacci_term(n)
+n = int(input("Enter the nth term to calculate: "))
+get_fibonacci_term(n)
