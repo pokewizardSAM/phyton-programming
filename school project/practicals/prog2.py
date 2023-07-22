@@ -1,16 +1,10 @@
-number = int(input("Enter a number: "))
+inpt_list = eval(input("Enter a list: "))
 
-if number < 2:
-    print(number, "is not a prime number")
-else:
-    is_prime = True
-
-    for i in range(2, int(number**0.5) + 1):
-        if number % i == 0:
-            is_prime = False
-            break
-
-    if is_prime:
-        print(number, "is a prime number")
+def summation(lst):
+    if len(lst) == 0:
+        return 0
     else:
-        print(number, "is not a prime number")
+        return lst[0] + summation(lst[1:])
+
+result = summation(inpt_list)
+print(f"The sum of the list: {inpt_list} is {result}")

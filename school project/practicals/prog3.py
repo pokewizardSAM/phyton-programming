@@ -1,11 +1,17 @@
-inpt_list = eval(input("Enter a list: "))
+# Using lru_cache decorator to cache results
+from functools import lru_cache 
 
-def summation(lst):
-    if len(lst) == 0:
-        return 0
-    else:
-        return lst[0] + summation(lst[1:])
+@lru_cache(maxsize=None)
+def fib(n):
+    if n < 2:
+        return n
+    return fib(n-1) + fib(n-2)
 
-result = summation(inpt_list)
-print(f"The sum of the list: {inpt_list} is {result}")
-kk
+def get_fibonacci_term(n):
+    print(f"Calculating the {n}th Fibonacci term...")
+    result = fib(n)
+    print(f"The {n}th Fibonacci term is {result}")
+
+if __name__ == '__main__':
+    n = int(input("Enter the nth term to calculate: "))
+    get_fibonacci_term(n)
