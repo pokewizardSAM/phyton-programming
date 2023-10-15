@@ -202,7 +202,8 @@ def main(page: flet.page):
                 icon=flet.icons.BOOKMARK_BORDER,
                 selected_icon=flet.icons.BOOKMARK,
                 label="SUIIIIIII",
-            )
+            )  
+# 
         ]
     )
 
@@ -214,7 +215,7 @@ def main(page: flet.page):
 
     page.add(Data_fields,control_row,greeting)
 
-flet.app(target=main, assets_dir="assets")
+flet.app(target=main, assets_dir="assets", view=flet.WEB_BROWSER)
 
 
 
