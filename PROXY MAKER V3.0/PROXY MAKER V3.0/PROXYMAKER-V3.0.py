@@ -291,7 +291,7 @@ def credits():
 │       │       │                                                          ││                                    x                                 │
 │       │       │          ┌────────────────────────────────               ││   Created by : Sameer Sekhar sahu             x                      │
 │       │       │          │                                       │       ││                            x             x           x               │
-│       │       │          │                                       │       ││   Class      : XII-AP                                                │
+│       │       │          │                                       │       ││   Class      : XII-AP / APS                                          │
 │       │       │          │                                       │       ││                                                                  x   │
 │       │       │          │                   ┌──────────         │       ││   Project Code : PRXMAKEV3120          x          x                  │
 │       │       │          │                   │                   │       ││                                              x             x         │
@@ -400,6 +400,8 @@ def main():
         elif usr_choice == "3":
             credits()
         elif usr_choice == "Q" or usr_choice== "q":
+            credits()
+            time.sleep(3)
             exit()
         
         else:
