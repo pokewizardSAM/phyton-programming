@@ -32,10 +32,14 @@ with open("school project/practicals/credentials.csv", "+a" , newline="") as cre
             passwrd = input("enter your password:")
 
             credentials.seek(0)
+            auth = False
             for i in cred_list:
                 if usrname == i[0] and passwrd == i[1]:
                     print("Login authorised")
+                    auth = True
                     time.sleep(2)
-                    continue
-                
-            print("Wrong username or password !!!\n")
+                    break
+            if not auth:
+                print("Wrong username or password !!!\n")
+
+
