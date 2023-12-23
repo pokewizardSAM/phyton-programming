@@ -18,4 +18,8 @@ most_occuring_words = Counter(words) # this will give you a list in return , rem
 top_most_words = most_occuring_words.most_common(10) # fetches the top 10 words with highest frequency 
 
 for word, frequency in top_most_words:
-    print(f"{word} has occured {frequency} times")
+    print("\n \n | Results |")
+    print(f" '{word}' has occured {frequency} times")
+
+
+    
