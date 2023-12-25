@@ -2,4 +2,9 @@ Selenium/chrome-mac-x64.zip
 Selenium/chromedriver-mac-x64/chromedriver
 Selenium/chromedriver-mac-x64/LICENSE.chromedriver
 Selenium/chromedriver-mac-x64.zip
+__pycache__/mysql.cpython-311.pyc
+supp/__pycache__/mysql.cpython-311.pyc
+Selenium/__pycache__/mysql.cpython-311.pyc
+Selenium/__pycache__/mysql.cpython-312.pyc
+school project/.DS_Store
 **/.DS_Store
