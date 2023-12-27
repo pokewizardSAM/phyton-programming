@@ -15,6 +15,8 @@ vacancy_list = [0,0,0,0,0,0,0,0]
 teacher_availibity_list=[0,0,0,0,0,0,0,0]
 class_availibility =[0,0,0,0,0,0,0,0]
 selected_teachs = []
+proxy_teacher_list = []
+
 
 def day_finder():
     global day
@@ -138,8 +140,11 @@ def centre_txt(text,artifacts):
         centered_text = " " * padding + text
         print(centered_text)
 
-def centre_table(table,type):
-    table_str = tabulate(table,tablefmt=type,showindex=False)
+def centre_table(table,type,header=False):
+    if not header:
+        table_str = tabulate(table,tablefmt=type,showindex=False)
+    else:
+        table_str = tabulate(table,tablefmt=type,showindex=False, headers=header)
     # head_out = tabulate(Header, tablefmt='grid',showindex=False)     just for reference yeah
     terminal_width = os.get_terminal_size().columns
     padding = (terminal_width - len(table_str.split("\n")[0])) // 2
@@ -155,18 +160,19 @@ def create_proxies():
 
     # print(absent_teachers_list)
     for teacher_info in absent_teachers_list:  
-        print("==========================================================================")
-        print(f"Alloting proxy classes for {teacher_info[1]}.......")
-        print("Default schedule: ", end="")
-        print(f"{teacher_info[2:]}\n")
+        centre_txt("==================================================================================================", False)
+        centre_txt(f"Alloting proxy classes for {teacher_info[1]}.......", False)
+        centre_table([["Default schedule"]],"fancy_grid")
+        centre_table([teacher_info[2:]], "fancy_grid")
         period_no = 0
+        
 
         for classes in teacher_info[2:]:
             if classes != "BREAK" and classes != "SHORT BREAK" :
                 period_no += 1
 
             if classes != "" and classes != "BREAK" and classes != "SHORT BREAK":
-                print(f"{period_no} period is in class {classes} ")
+                # print(f"{period_no} period is in class {classes} ")
                 reallocation = True
                 vacancy_list[period_no-1] += 1
             else:
@@ -178,11 +184,18 @@ def create_proxies():
                 Teacher_db.seek(0)
                 next(db_reader)
                 next(db_reader)
-                print(">>> Free teachers in this period are as follows:")
+                # print(">>> Free teachers in this period are as follows:")
+                global proxy_teacher_list
+                proxy_teacher_list = []
                 # print(f"i was executed at {period_no} 1 " )
                 for other_teacher_in_same_period in db_reader:
-
-                    if other_teacher_in_same_period[1].replace(" ", "").lower().replace("ms.","") in selected_teachs:
+                    
+                    compare_name = other_teacher_in_same_period[1].replace(" ", "").lower().replace("ms.","").replace("mr.","").split("(")[0]
+                    compare_alias = other_teacher_in_same_period[1].replace(" ", "").lower().replace("ms.","").replace("mr.","").split("(")[-1].replace(")","")
+                    # compare_alias = other_teacher_in_same_period[1].replace(" ", "").lower().replace("ms.","").replace("mr.","").split("(")[1].replace(")","")  # debugging Flags 
+                    # # comp_teacher_name = comp_value[0]
+                    # print("comparision name : ",compare_name,"compare alias :",compare_alias)      # debugging Flags  
+                    if compare_name in selected_teachs or compare_alias in selected_teachs:
                         # print(f"i was executed at {period_no} 2 " )
                         continue
 
@@ -194,30 +207,44 @@ def create_proxies():
                         # print(f"i was executed at {period_no} 3")
                         
                         if other_teacher_in_same_period[period_no+3] == "":
-                            print(f"    {other_teacher_in_same_period[1]}")
-                            i_reduce_redundancy(period_no,other_teacher_in_same_period)
+                            proxy_teacher_list.append([other_teacher_in_same_period[1]])
+                            # print(f"    {other_teacher_in_same_period[1]}")
+                            # i_reduce_redundancy(period_no,other_teacher_in_same_period)
                         
 
                     elif period_no > 3:     # definately blasted my head 
 
                         if other_teacher_in_same_period[period_no+2] == "":
-                            print(f"    {other_teacher_in_same_period[1]}")
-                            i_reduce_redundancy(period_no,other_teacher_in_same_period)
+                            proxy_teacher_list.append([other_teacher_in_same_period[1]])
+                            # print(f"    {other_teacher_in_same_period[1]}")
+                            # i_reduce_redundancy(period_no,other_teacher_in_same_period)
 
                     else:
                         if other_teacher_in_same_period[period_no+1] == "":
-                            print(f"    {other_teacher_in_same_period[1]}")
-                            i_reduce_redundancy(period_no,other_teacher_in_same_period)
-                        
-                    # save_reallocation_data(realloctaed_list)    
-                if teacher_availibity_list[period_no-1] == 0:
-                    Available_teachers = teacher_availibity_list[period_no-1]   #for later usage 
-                    # print(Available_teachers)
-                    print("    No, Teachers are available !!")
-
-                print()
+                            proxy_teacher_list.append([other_teacher_in_same_period[1]])
+                            # print(f"    {other_teacher_in_same_period[1]}")
+                            # i_reduce_redundancy(period_no,other_teacher_in_same_period)
+            if classes != "BREAK" and classes != "SHORT BREAK" and reallocation:  
+                if str(period_no)[-1] == "1":
+                    centre_table(proxy_teacher_list, header=[f"Teacher Available in {period_no}st period"], type="fancy_grid")  
+                elif str(period_no)[-1] == "2":
+                    centre_table(proxy_teacher_list, header=[f"Teacher Available in {period_no}nd period"], type="fancy_grid")  
+                elif str(period_no)[-1] == "3":
+                    centre_table(proxy_teacher_list, header=[f"Teacher Available in {period_no}rd period"], type="fancy_grid")
+                else:
+                    
+                    centre_table(proxy_teacher_list, header=[f"Teacher Available in {period_no}th period"], type="fancy_grid")
+                   
+                   
+                    # save_reallocation_data(realloctaed_list)  
+        # if teacher_availibity_list[period_no-1] == 0:
+        #     Available_teachers = teacher_availibity_list[period_no-1]   #for later usage 
+        #     # print(Available_teachers)
+        #     print("    No, Teachers are available !!")
+        print()
         period_no = 0
-        print("==========================================================================")
+
+        centre_txt("==================================================================================================",False)
     
     return
 
