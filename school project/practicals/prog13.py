@@ -1,45 +1,42 @@
 import csv
 import time
 
-
-with open("school project/practicals/credentials.csv", "+a" , newline="") as credentials:
+with open("school project/practicals/credentials.csv", "+a", newline="") as credentials:
     cred_list = csv.reader(credentials)
-    cred_write = csv.writer(credentials)
-
-    cred_records = [["Username", "Password", "Root privilage"]]
-    if cred_list == []:
-        cred_write.writerows(cred_records)
 
     print("| Welcome to python credential checker |")
+
     while True:
-        usr_choice = input("What do you want to do ? \n 1. Read all the credentials \n 2. write a new credential \n 3. check your credentials \n Enter your choice:")
+        print("1. Read all the credentials")
+        print("2. Write a new credential")
+        print("3. Check your credentials")
+
+        usr_choice = input("What do you want to do? Enter your choice: ")
+
         if usr_choice == "1":
             credentials.seek(0)
-            for i in cred_list:
-                print(i)
+            for row in cred_list:
+                print(row)
+
         elif usr_choice == "2":
-            username = input("Enter the username of the new user:")
-            passswd  = input("enter the password of the new user:")
-            root_acc = input("Do you wan the user to have root access(y/n):")
+            username = input("Enter the username of the new user: ")
+            password = input("Enter the password of the new user: ")
+            root_access = input(
+                "are you administrator ? (y/n): ")
 
-            write_confirm = input("are you sure you want to write this to thw credential lsit? (y/n):")
+            write_confirm = input(
+                "Are you sure you want to write this to the credential list? (y/n): ")
             if write_confirm == "y":
-                cred_write.writerow([username,passswd, root_acc])
-            else:
-                continue
-        elif usr_choice == "3":
-            usrname = input("enter you username:")
-            passwrd = input("enter your password:")
+                cred_list.append([username, password, root_access])
 
-            credentials.seek(0)
-            auth = False
-            for i in cred_list:
-                if usrname == i[0] and passwrd == i[1]:
-                    print("Login authorised")
-                    auth = True
+        elif usr_choice == "3":
+            username = input("Enter your username: ")
+            password = input("Enter your password: ")
+
+            for row in cred_list:
+                if username == row[0] and password == row[1]:
+                    print("Login authorized")
                     time.sleep(2)
                     break
-            if not auth:
-                print("Wrong username or password !!!\n")
-
-
+            else:
+                print("Wrong username or password!!!")

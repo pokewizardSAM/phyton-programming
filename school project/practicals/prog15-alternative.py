@@ -1,3 +1,4 @@
+import collections
 phishingemail = [
     "jackpotwin@lottery.com",
     "claimtheprize@mymoney.com",
@@ -11,14 +12,8 @@ phishingemail = [
     "youarelucky@mymoney.com"
 ]
 
-myd = {}
-for e in phishingemail:
-    x = e.split('@')
-    for w in x[1:]:  # Start from index 1 to consider the domain part of the email
-        if w not in myd:
-            myd[w] = 1
-        else:
-            myd[w] += 1
+email_domains = [email.split('@')[-1] for email in phishingemail]
+domain_counts = collections.Counter(email_domains)
+most_common_domain = domain_counts.most_common(1)[0][0]
 
-key_max = max(myd, key=myd.get)
-print("Most Common Occurring domain is:", key_max)
+print("Most Common Occurring domain is:", most_common_domain)

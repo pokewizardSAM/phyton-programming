@@ -1,6 +1,6 @@
 import mysql.connector
 
-def search_employee(employee_number):
+def search_employee(emp_id):
     try:
         conn = mysql.connector.connect(
             host='localhost',
@@ -11,8 +11,7 @@ def search_employee(employee_number):
 
         cursor = conn.cursor()
 
-        
-        cursor.execute('SELECT * FROM employees WHERE id = %s', (employee_number,))
+        cursor.execute('SELECT * FROM employees WHERE id = %s', (emp_id,))
         record = cursor.fetchone()
 
         if record:
@@ -22,14 +21,14 @@ def search_employee(employee_number):
             print("Department:", record[2])
             print("Salary:", record[3])
         else:
-            print("Employee not found with Employee Number:", employee_number)
+            print("Employee not found with Employee Number:", emp_id)
 
         cursor.close()
         conn.close()
 
-    except :
+    except:
         print("Error:")
 
-employee_number_to_search = input("enters the emp id:")
+emp_id_to_search = input("Enter the Employee ID:")
 
-search_employee(employee_number_to_search)
+search_employee(emp_id_to_search)

@@ -1,19 +1,21 @@
 import csv
 
-with open("school project/practicals/prog12.csv", "+a", newline="") as Merchant_Databse:
-    merch_db = csv.writer(Merchant_Databse)
-    
-    item_record = [["Item_Name", "Description", "Price"]]
-    n= 0
+with open("school project/practicals/prog12.csv", "+a", newline="") as data_file:
+    data_writer = csv.writer(data_file)
+
+    record = [["name", "info", "cost"]]
+    count = 0
     while True:
-        if n>0:
-            if input("want ot continue adding (y/n):") == "n":
-                merch_db.writerows(item_record)
+        if count > 0:
+            if input("continue? (y/n):") == "n":
+                data_writer.writerows(record)
                 break
 
-        Item_Name = input("Please enter your item code:")
-        desc = input("Please enter your item description:")
-        price = input("Please enter your item price:")
-        item_record.append([Item_Name,desc,price])
-        n += 1
+        name = input("item name:")
+
+        details = input("item details:")
+            
+        amount = float(input("item price:"))
         
+        record.append([name, details, amount])
+        count += 1
