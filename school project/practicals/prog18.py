@@ -5,7 +5,7 @@ def search_employee(emp_id):
         conn = mysql.connector.connect(
             host='localhost',
             user='root',
-            password='Alibha98',
+            password='rohit09',
             database='empprec'
         )
 

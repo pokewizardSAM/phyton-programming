@@ -1,6 +1,6 @@
 import csv
 
-with open("school project/practicals/prog12.csv", "+a", newline="") as data_file:
+with open("prog12.csv", "+a", newline="") as data_file:
     data_writer = csv.writer(data_file)
 
     record = [["name", "info", "cost"]]
@@ -14,7 +14,7 @@ with open("school project/practicals/prog12.csv", "+a", newline="") as data_file
         name = input("item name:")
 
         details = input("item details:")
-            
+
         amount = float(input("item price:"))
         
         record.append([name, details, amount])

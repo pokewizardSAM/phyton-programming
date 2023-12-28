@@ -1,7 +1,7 @@
 import csv
 import time
 
-with open("school project/practicals/credentials.csv", "+a", newline="") as credentials:
+with open("credentials.csv", "+a", newline="") as credentials:
     cred_list = csv.reader(credentials)
 
     print("| Welcome to python credential checker |")
